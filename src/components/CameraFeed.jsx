@@ -1,4 +1,6 @@
 import './CameraFeed.css';
+import { useRef } from 'react';
+import Webcam from 'react-webcam';
 
 const CameraFeed = ({ onCapture }) => {
   const webcamRef = useRef(null);
