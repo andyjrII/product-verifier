@@ -1,9 +1,10 @@
 import { Outlet, Link } from 'react-router-dom';
+import './Layout.css';
 
 const Layout = () => {
   return (
-    <div>
-      <nav className='navbar navbar-expand-lg navbar-light bg-light px-3'>
+    <div className='main-container mx-auto'>
+      <nav className='navbar navbar-expand-lg navbar-dark bg-primary px-3'>
         <Link className='navbar-brand' to='/'>
           LabelScan
         </Link>
