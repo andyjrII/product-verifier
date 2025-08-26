@@ -1,6 +1,8 @@
+import './MismatchDisplay.css';
+
 const MismatchDisplay = ({ scannedImage, databaseImage, errorMessage }) => {
   return (
-    <div className='alert alert-danger mt-3'>
+    <div className='alert alert-danger mt-3 mismatch-display text-center'>
       <h5>❌ Mismatch Detected</h5>
       <p>
         <strong>Error:</strong> {errorMessage}
@@ -15,7 +17,7 @@ const MismatchDisplay = ({ scannedImage, databaseImage, errorMessage }) => {
           />
         </div>
         <div className='col-md-6 text-center'>
-          <p>Product</p>
+          <p>Database Product</p>
           <img
             src={databaseImage}
             alt='Database'

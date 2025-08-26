@@ -11,17 +11,20 @@ const CameraFeed = ({ onCapture }) => {
   };
 
   return (
-    <div className='camera-container text-center'>
+    <>
       <Webcam
         audio={false}
         ref={webcamRef}
         screenshotFormat='image/jpeg'
         className='camera-feed mb-3'
       />
-      <button className='btn btn-success' onClick={capture}>
-        Capture Label
+      <button
+        className='btn btn-md btn-primary w-25 ms-3 me-2'
+        onClick={capture}
+      >
+        Scan
       </button>
-    </div>
+    </>
   );
 };
 
