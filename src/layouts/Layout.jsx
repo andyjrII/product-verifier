@@ -6,7 +6,7 @@ const Layout = () => {
     <div className='main-container mx-auto'>
       <nav className='navbar navbar-expand-lg navbar-dark bg-primary px-3'>
         <Link className='navbar-brand' to='/'>
-          LabelScan
+          ProductScan
         </Link>
         <div className='navbar-nav'>
           <Link className='nav-link' to='/scan'>
