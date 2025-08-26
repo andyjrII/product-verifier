@@ -8,7 +8,7 @@ const MismatchDisplay = ({ scannedImage, databaseImage, errorMessage }) => {
         <strong>Error:</strong> {errorMessage}
       </p>
       <div className='row mt-3'>
-        <div className='col-md-6 text-center'>
+        <div className='col-6 text-center'>
           <p>Scanned Product</p>
           <img
             src={scannedImage}
@@ -16,7 +16,7 @@ const MismatchDisplay = ({ scannedImage, databaseImage, errorMessage }) => {
             className='img-fluid rounded shadow'
           />
         </div>
-        <div className='col-md-6 text-center'>
+        <div className='col-6 text-center'>
           <p>Database Product</p>
           <img
             src={databaseImage}
