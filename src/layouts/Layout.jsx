@@ -1,38 +1,42 @@
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link, useLocation } from 'react-router-dom';
 import './Layout.css';
 
 const Layout = () => {
+  const location = useLocation();
+
   return (
     <div className='main-container mx-auto'>
-      <nav className='navbar bg-primary' data-bs-theme='dark'>
-        <div className='container-fluid'>
-          <Link className='navbar-brand' to='/'>
-            ProductScan
+      <nav className='navbar bg-primary navbar-dark px-3'>
+        <div className='container-fluid d-flex justify-content-between align-items-center'>
+          <Link className='navbar-brand d-flex align-items-center gap-2' to='/'>
+            🏠 ProductScan
           </Link>
-          <div className='collapse navbar-collapse' id='navbarText'>
-            <ul className='navbar-nav me-auto mb-2 mb-lg-0'>
-              <li className='nav-item'>
-                <Link className='nav-link active' aria-current='page' to='/'>
-                  Home
-                </Link>
-              </li>
-              <li className='nav-item'>
-                <Link className='nav-link' to='/scan'>
-                  Scan
-                </Link>
-              </li>
-              <li className='nav-item'>
-                <Link className='nav-link' to='/result'>
-                  Results
-                </Link>
-              </li>
-            </ul>
-            <span className='navbar-text'>
-              Navbar text with an inline element
-            </span>
-          </div>
+
+          <ul className='navbar-nav flex-row gap-3'>
+            <li className='nav-item'>
+              <Link
+                className={`nav-link text-white ${
+                  location.pathname === '/' ? 'fw-bold' : ''
+                }`}
+                to='/'
+              >
+                🏠 Dashboard
+              </Link>
+            </li>
+            <li className='nav-item'>
+              <Link
+                className={`nav-link text-white ${
+                  location.pathname === '/history' ? 'fw-bold' : ''
+                }`}
+                to='/history'
+              >
+                📚 History
+              </Link>
+            </li>
+          </ul>
         </div>
       </nav>
+
       <main className='container mt-4'>
         <Outlet />
       </main>

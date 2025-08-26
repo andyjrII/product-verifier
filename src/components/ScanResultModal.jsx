@@ -15,7 +15,7 @@ const ScanResultModal = ({ scan, onClose }) => {
 
         modalRef.current.addEventListener('hidden.bs.modal', onClose);
       }
-    }, 0); // Wait for DOM to render
+    }, 0);
 
     return () => {
       clearTimeout(timeout);

@@ -5,7 +5,7 @@ const ScanHistoryPage = () => {
   const [scans] = useState([
     {
       id: 1,
-      productName: 'Protein Bar X',
+      productName: 'Product B',
       status: 'mismatch',
       scannedImage: '/images/scan1.jpg',
       databaseImage: '/images/database.jpg',

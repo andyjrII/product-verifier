@@ -82,7 +82,7 @@ const DashboardPage = () => {
         <RecentScansList scans={scans.slice(0, 5)} />
         <div className='text-end mt-2'>
           <a href='/history' className='btn btn-link'>
-            View Full History →
+            📚 View Full History →
           </a>
         </div>
       </div>
