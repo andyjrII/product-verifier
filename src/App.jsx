@@ -1,16 +1,14 @@
 import { Routes, Route } from 'react-router-dom';
 import Layout from './layouts/Layout';
-import HomePage from './pages/HomePage';
-import ResultPage from './pages/ResultPage';
-import ScanPage from './pages/ScanPage';
+import Dashboard from './pages/Dashboard';
+import ScanHistory from './pages/ScanHistory';
 
 function App() {
   return (
     <Routes>
       <Route path='/' element={<Layout />}>
-        <Route index element={<HomePage />} />
-        <Route path='scan' element={<ScanPage />} />
-        <Route path='result' element={<ResultPage />} />
+        <Route index element={<Dashboard />} />
+        <Route path='history' element={<ScanHistory />} />
       </Route>
     </Routes>
   );
