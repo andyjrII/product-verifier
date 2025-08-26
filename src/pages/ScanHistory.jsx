@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import ScanResultModal from '../components/ScanResultModal';
+import DBImage from '../assets/db-image.jpg';
+import ScannedImage from '../assets/scanned-img.jpeg';
 
 const ScanHistoryPage = () => {
   const [scans] = useState([
@@ -7,8 +9,8 @@ const ScanHistoryPage = () => {
       id: 1,
       productName: 'Product B',
       status: 'mismatch',
-      scannedImage: '/images/scan1.jpg',
-      databaseImage: '/images/database.jpg',
+      scannedImage: ScannedImage,
+      databaseImage: DBImage,
       errorMessage: 'Verbiage mismatch',
       timestamp: 'Aug 26, 2025 14:30',
     },
@@ -16,8 +18,8 @@ const ScanHistoryPage = () => {
       id: 2,
       productName: 'Product A',
       status: 'match',
-      scannedImage: '/images/scan2.jpg',
-      databaseImage: '/images/database.jpg',
+      scannedImage: DBImage,
+      databaseImage: DBImage,
       timestamp: 'Aug 25, 2025 13:10',
     },
   ]);

@@ -20,7 +20,7 @@ const Layout = () => {
                 }`}
                 to='/'
               >
-                🏠 Dashboard
+                🏠 Home
               </Link>
             </li>
             <li className='nav-item'>

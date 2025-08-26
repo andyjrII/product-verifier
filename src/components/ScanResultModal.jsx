@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Modal } from 'bootstrap';
+import './ScanResultModal.css';
 
 const ScanResultModal = ({ scan, onClose }) => {
   const modalRef = useRef(null);
@@ -43,7 +44,7 @@ const ScanResultModal = ({ scan, onClose }) => {
 
   return (
     <div
-      className='modal fade'
+      className='modal fade scan-result-modal'
       id='scanResultModal'
       tabIndex='-1'
       aria-labelledby='scanResultModalLabel'
@@ -72,7 +73,7 @@ const ScanResultModal = ({ scan, onClose }) => {
             </div>
 
             <div className='row justify-content-center'>
-              <div className='col-md-6 text-center mb-3'>
+              <div className='col-6 text-center mb-3'>
                 <h6>Scanned Image</h6>
                 <img
                   src={scannedImage}
@@ -80,7 +81,7 @@ const ScanResultModal = ({ scan, onClose }) => {
                   className='img-fluid rounded shadow-sm'
                 />
               </div>
-              <div className='col-md-6 text-center mb-3'>
+              <div className='col-6 text-center mb-3'>
                 <h6>Database Image</h6>
                 <img
                   src={databaseImage}
@@ -104,7 +105,7 @@ const ScanResultModal = ({ scan, onClose }) => {
           <div className='modal-footer'>
             <button
               type='button'
-              className='btn btn-secondary'
+              className='btn btn-danger'
               data-bs-dismiss='modal'
             >
               Close
