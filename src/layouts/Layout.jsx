@@ -9,7 +9,7 @@ const Layout = () => {
       <nav className='navbar bg-primary navbar-dark px-3'>
         <div className='container-fluid d-flex justify-content-between align-items-center'>
           <Link className='navbar-brand d-flex align-items-center gap-2' to='/'>
-            🏠 ProductScan
+            📦 ProductScan
           </Link>
 
           <ul className='navbar-nav flex-row gap-3'>

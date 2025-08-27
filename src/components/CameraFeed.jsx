@@ -18,11 +18,8 @@ const CameraFeed = ({ onCapture }) => {
         screenshotFormat='image/jpeg'
         className='camera-feed mb-3'
       />
-      <button
-        className='btn btn-md btn-primary w-25 ms-3 me-2'
-        onClick={capture}
-      >
-        Scan
+      <button className='btn btn-primary ms-3' onClick={capture}>
+        📷 Scan
       </button>
     </>
   );

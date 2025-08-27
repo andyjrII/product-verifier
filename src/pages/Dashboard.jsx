@@ -6,6 +6,7 @@ import MismatchDisplay from '../components/MismatchDisplay';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import dbImage from '../assets/db-image.jpg';
+import './Dashboard.css';
 
 const DashboardPage = () => {
   const [loading, setLoading] = useState(false);
@@ -21,7 +22,7 @@ const DashboardPage = () => {
 
     setTimeout(() => {
       setLoading(false);
-      setCameraActive(false); // ✅ Close camera after scan
+      setCameraActive(false);
 
       toast.success('✅ Scan completed!', {
         position: 'top-center',
@@ -45,25 +46,27 @@ const DashboardPage = () => {
   };
 
   return (
-    <div className='container mt-5'>
-      <h2 className='mb-4'>📦 Product Scanner</h2>
-
-      {/* Scan Trigger */}
+    <div className='container dashboard mt-2'>
+      {/* Scan */}
       <div className='mb-4'>
         {!cameraActive ? (
-          <button
-            className='btn btn-primary w-100'
+          <div
+            className='text-center scan-container mx-auto'
+            role='button'
             onClick={() => setCameraActive(true)}
           >
-            📷 Start Scan
-          </button>
+            <span className='scan-icon'>📷</span>
+            <p className='scan-text text-secondary'>
+              Click here to start your scan
+            </p>
+          </div>
         ) : (
           <div className='card p-4 shadow-sm'>
             <h5>📷 Scanning...</h5>
             <div className='row'>
               <CameraFeed onCapture={handleCapture} />
               <button
-                className='btn btn-md btn-outline-danger w-25'
+                className='btn btn-outline-danger'
                 onClick={() => setCameraActive(false)}
               >
                 ❌ Cancel
@@ -79,7 +82,7 @@ const DashboardPage = () => {
       </div>
 
       {/* Latest Result */}
-      <div className='card p-4 shadow-sm mb-4'>
+      <div className='card p-4 mb-4 result-container'>
         <h5>📊 Latest Scan Result</h5>
         {!latestResult ? (
           <div className='text-muted'>No scan yet</div>
@@ -95,7 +98,7 @@ const DashboardPage = () => {
       </div>
 
       {/* Recent History Preview */}
-      <div className='card p-4 shadow-sm'>
+      <div className='card p-4 recent-container'>
         <h5>🕓 Recent Scans</h5>
         <RecentScansList scans={scans.slice(0, 5)} />
         <div className='text-end mt-2'>
