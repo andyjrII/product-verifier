@@ -1,3 +1,31 @@
 .main-container {
   max-width: 400px;
+
+  .nav {
+    width: 100% !important;
+    position: fixed;
+    bottom: 0;
+
+    .nav-link {
+      padding: 10px;
+      transition: all 0.2s ease-in-out;
+      color: #6c757d;
+      width: 60px;
+      vertical-align: middle;
+
+      svg {
+        font-size: 1.75rem;
+      }
+
+      span {
+        font-size: 1rem;
+      }
+    }
+
+    .active-link {
+      border-top: 4px solid #000000;
+      border-bottom: 4px solid #000000;
+      color: #000000;
+    }
+  }
 }
