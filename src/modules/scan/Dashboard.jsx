@@ -53,13 +53,10 @@ const Dashboard = () => {
       ) : (
         <div className='p-4 border rounded-xl shadow space-y-4'>
           <h3 className='font-medium'>📡 Scanning...</h3>
-          <CameraFeed onCapture={handleCapture} />
-          <button
-            className='px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600'
-            onClick={() => setCameraActive(false)}
-          >
-            ❌ Cancel
-          </button>
+          <CameraFeed
+            onCapture={handleCapture}
+            onCancel={() => setCameraActive(false)}
+          />
           {loading && (
             <div className='mt-3 p-3 bg-blue-50 text-blue-700 rounded'>
               Processing scan... please wait.

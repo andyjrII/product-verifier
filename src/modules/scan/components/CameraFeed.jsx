@@ -1,7 +1,8 @@
 import { useRef } from 'react';
 import Webcam from 'react-webcam';
+import Button from '../../../components/ui/Button';
 
-const CameraFeed = ({ onCapture }) => {
+const CameraFeed = ({ onCapture, onCancel }) => {
   const webcamRef = useRef(null);
 
   const capture = () => {
@@ -18,12 +19,14 @@ const CameraFeed = ({ onCapture }) => {
         className='w-full max-w-lg rounded-xl shadow-lg'
       />
 
-      <button
-        onClick={capture}
-        className='flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 active:scale-95 transition-transform'
-      >
-        📷 Scan
-      </button>
+      <div className='flex gap-3'>
+        <Button variant='primary' onClick={capture}>
+          📷 Scan
+        </Button>
+        <Button variant='danger' onClick={onCancel}>
+          ❌ Cancel
+        </Button>
+      </div>
     </div>
   );
 };
