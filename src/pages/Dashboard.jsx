@@ -47,6 +47,7 @@ const DashboardPage = () => {
 
   return (
     <div className='container dashboard mt-2'>
+      <h5>Scan</h5>
       {/* Scan */}
       <div className='mb-4'>
         {!cameraActive ? (
