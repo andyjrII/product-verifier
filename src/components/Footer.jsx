@@ -1,40 +1,45 @@
 import { Link, useLocation } from 'react-router-dom';
 import { FaCamera } from 'react-icons/fa';
 import { MdHome, MdHistory } from 'react-icons/md';
-import './Footer.css';
 
 const Footer = () => {
   const location = useLocation();
 
+  const isActive = (path) =>
+    location.pathname === path ? 'text-black font-semibold' : 'text-gray-500';
+
   return (
-    <nav className='footer-nav'>
-      <div className='footer-inner'>
+    <nav className='fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 shadow-md z-50'>
+      <div className='flex justify-between items-center px-8 py-3 relative'>
         {/* Home */}
         <Link
           to='/'
-          className={`footer-item ${location.pathname === '/' ? 'active' : ''}`}
+          className={`flex flex-col items-center text-sm ${isActive('/')}`}
         >
-          <MdHome className='footer-icon' />
-          <span className='footer-label'>Home</span>
+          <MdHome className='text-2xl' />
+          <span>Home</span>
         </Link>
 
         {/* Scan */}
-        <div className='scan-wrapper'>
-          <Link to='/' className='scan-button' role='button'>
+        <div className='flex flex-col items-center'>
+          <Link
+            to='/'
+            className='bg-blue-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-lg transform transition hover:scale-105'
+          >
             <FaCamera />
           </Link>
-          <span className='scan-label'>Scan</span>
+          <span className='text-xs text-gray-500 mt-1'>Scan</span>
         </div>
 
         {/* History */}
         <Link
           to='/history'
-          className={`footer-item ${
-            location.pathname === '/history' ? 'active' : ''
-          }`}
+          className={`flex flex-col items-center text-sm ${isActive(
+            '/history'
+          )}`}
         >
-          <MdHistory className='footer-icon' />
-          <span className='footer-label'>History</span>
+          <MdHistory className='text-2xl' />
+          <span>History</span>
         </Link>
       </div>
     </nav>

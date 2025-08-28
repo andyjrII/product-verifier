@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import CameraFeed from '../components/CameraFeed';
 import RecentScansList from '../components/RecentScansList';
-import MatchModal from '../components/MatchModal';
+import MatchModal from '../modules/scan/components/MatchModal';
 import MismatchDisplay from '../components/MismatchDisplay';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
