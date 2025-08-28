@@ -1,52 +1,92 @@
-const ScanResultModal = ({ isOpen, onClose, result }) => {
-  if (!isOpen) return null;
+import { useEffect } from 'react';
 
-  const { status, label, scannedImage, databaseImage, errorMessage } = result;
+const ScanResultModal = ({ scan, onClose }) => {
+  if (!scan) return null;
+
+  const {
+    productName,
+    status,
+    scannedImage,
+    databaseImage,
+    errorMessage,
+    timestamp,
+  } = scan;
+  const isMatch = status === 'match';
+
+  // close modal on ESC
+  useEffect(() => {
+    const handleEsc = (e) => e.key === 'Escape' && onClose();
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [onClose]);
 
   return (
-    <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'>
-      <div className='bg-white rounded-lg shadow-lg p-6 w-full max-w-md'>
-        <h2 className='text-xl font-semibold text-gray-800 mb-4'>
-          Scan Result: {status === 'match' ? '✅ Match' : '❌ Mismatch'}
-        </h2>
+    <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4'>
+      <div className='bg-white rounded-2xl shadow-lg max-w-md w-full animate-fadeIn'>
+        {/* Header */}
+        <div className='flex justify-between items-center border-b px-4 py-3'>
+          <h5 className='text-lg font-semibold'>Scan Result: {productName}</h5>
+          <button
+            onClick={onClose}
+            className='text-gray-400 hover:text-gray-600 text-xl font-bold'
+          >
+            ×
+          </button>
+        </div>
 
-        <div className='flex flex-col gap-3'>
-          <p className='text-sm text-gray-600'>
-            Label: <span className='font-medium'>{label}</span>
-          </p>
+        {/* Body */}
+        <div className='p-4'>
+          <div className='text-center mb-4'>
+            <span
+              className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${
+                isMatch
+                  ? 'bg-green-100 text-green-700'
+                  : 'bg-red-100 text-red-700'
+              }`}
+            >
+              {isMatch ? 'Match ✅' : 'Mismatch ❌'}
+            </span>
+          </div>
 
-          <div className='flex gap-4 justify-center'>
+          <div className='grid grid-cols-2 gap-3 mb-4'>
             <div className='text-center'>
-              <p className='text-xs text-gray-500 mb-1'>Scanned</p>
+              <h6 className='font-medium mb-2'>Scanned Image</h6>
               <img
                 src={scannedImage}
                 alt='Scanned'
-                className='w-24 h-24 object-cover rounded shadow'
+                className='w-full h-40 object-cover rounded-lg shadow'
               />
             </div>
             <div className='text-center'>
-              <p className='text-xs text-gray-500 mb-1'>Reference</p>
+              <h6 className='font-medium mb-2'>Database Image</h6>
               <img
                 src={databaseImage}
                 alt='Reference'
-                className='w-24 h-24 object-cover rounded shadow'
+                className='w-full h-40 object-cover rounded-lg shadow'
               />
             </div>
           </div>
 
-          {errorMessage && (
-            <p className='text-sm text-red-600 text-center mt-2'>
-              {errorMessage}
-            </p>
+          <p className='text-sm text-gray-500 text-center'>
+            Scanned on: {timestamp}
+          </p>
+
+          {!isMatch && errorMessage && (
+            <div className='mt-4 bg-yellow-50 border border-yellow-200 text-yellow-700 p-3 rounded text-center text-sm'>
+              <strong>Issue:</strong> {errorMessage}
+            </div>
           )}
         </div>
 
-        <button
-          onClick={onClose}
-          className='mt-6 w-full bg-brand text-white py-2 rounded hover:bg-blue-700 transition'
-        >
-          Close
-        </button>
+        {/* Footer */}
+        <div className='border-t px-4 py-3 flex justify-end'>
+          <button
+            onClick={onClose}
+            className='px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 active:scale-95 transition'
+          >
+            Close
+          </button>
+        </div>
       </div>
     </div>
   );

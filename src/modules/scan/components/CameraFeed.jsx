@@ -1,37 +1,29 @@
 import { useRef } from 'react';
+import Webcam from 'react-webcam';
 
 const CameraFeed = ({ onCapture }) => {
-  const inputRef = useRef();
+  const webcamRef = useRef(null);
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      onCapture(reader.result);
-    };
-    reader.readAsDataURL(file);
+  const capture = () => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    onCapture(imageSrc);
   };
 
   return (
-    <div className='flex flex-col items-center gap-3'>
-      <input
-        type='file'
-        accept='image/*'
-        ref={inputRef}
-        onChange={handleImageUpload}
-        className='hidden'
+    <div className='flex flex-col items-center gap-4'>
+      <Webcam
+        audio={false}
+        ref={webcamRef}
+        screenshotFormat='image/jpeg'
+        className='w-full max-w-lg rounded-xl shadow-lg'
       />
+
       <button
-        onClick={() => inputRef.current.click()}
-        className='bg-brand text-white px-4 py-2 rounded shadow hover:bg-blue-700 transition'
+        onClick={capture}
+        className='flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 active:scale-95 transition-transform'
       >
-        Upload Image
+        📷 Scan
       </button>
-      <p className='text-sm text-gray-500'>
-        Or use your camera to scan a label
-      </p>
     </div>
   );
 };

@@ -1,23 +1,26 @@
 const RecentScansList = ({ scans }) => {
   return (
-    <div className='grid grid-cols-2 sm:grid-cols-3 gap-4'>
-      {scans.map((scan, index) => (
-        <div
-          key={index}
-          className='bg-white border rounded p-3 shadow-sm flex flex-col items-center'
-        >
-          <span
-            className={`text-xs px-2 py-1 rounded ${
-              scan.status === 'match'
-                ? 'bg-green-500 text-white'
-                : 'bg-red-500 text-white'
-            }`}
+    <div className='mt-6'>
+      <h4 className='text-lg font-semibold mb-3'>Recent Scans</h4>
+      <ul className='space-y-2'>
+        {scans.map((scan, index) => (
+          <li
+            key={index}
+            className='flex justify-between items-center bg-white p-3 rounded-lg shadow-sm border border-gray-200'
           >
-            {scan.status}
-          </span>
-          <p className='mt-2 text-sm text-gray-700'>{scan.label}</p>
-        </div>
-      ))}
+            <span className='text-gray-700 font-medium'>{scan.label}</span>
+            <span
+              className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                scan.status === 'match'
+                  ? 'bg-green-100 text-green-700'
+                  : 'bg-red-100 text-red-700'
+              }`}
+            >
+              {scan.status === 'match' ? 'Match' : 'Mismatch'}
+            </span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
