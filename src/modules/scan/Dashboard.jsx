@@ -16,20 +16,42 @@ const Dashboard = () => {
 
   const [scans, setScans] = useState([
     {
+      id: 1,
+      productName: 'Eva Water',
       label: 'Product A',
       status: 'match',
       scannedImage: scannedImage,
       databaseImage: scannedImage,
-      errorMessage: null,
+      errorMessage: [],
       timestamp: '15 Aug 2025, 16:14',
     },
     {
+      id: 2,
+      productName: 'Ragolis',
       label: 'Product B',
       status: 'mismatch',
       scannedImage: scannedImage,
       databaseImage: dbImage,
-      errorMessage: 'Packaging mismatch',
+      errorMessage: ['Barcode mismatch'],
       timestamp: '5 Aug 2025, 11:14',
+    },
+    {
+      id: 3,
+      productName: 'Coke',
+      status: 'match',
+      scannedImage: dbImage,
+      databaseImage: scannedImage,
+      errorMessage: [],
+      timestamp: '25 Aug 2025, 13:10',
+    },
+    {
+      id: 4,
+      productName: 'Rite Sausage Roll',
+      status: 'mismatch',
+      scannedImage: scannedImage,
+      databaseImage: dbImage,
+      errorMessage: ['Ingredients list mismatch', 'Verbiage mismatch'],
+      timestamp: '27 Aug 2025, 09:45',
     },
   ]);
 
@@ -42,10 +64,10 @@ const Dashboard = () => {
 
       const result = {
         status: 'mismatch',
-        productName: 'Protein Bar X',
+        productName: 'LaCasera',
         scannedImage: imgSrc,
         databaseImage: dbImage,
-        errorMessage: 'Verbiage mismatch',
+        errorMessage: ['Verbiage mismatch'],
         timestamp: new Date().toLocaleDateString('en-GB', {
           year: 'numeric',
           month: 'short',
@@ -65,7 +87,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className='px-4 py-6 space-y-8'>
+    <div className='px-4 py-6 space-y-12'>
       <h2 className='text-3xl font-semibold'>
         Scan <span className='float-right'>📷</span>
       </h2>
@@ -79,8 +101,8 @@ const Dashboard = () => {
           <p className='font-medium text-3xl'>Scan Product</p>
         </div>
       ) : (
-        <div className='p-4 border rounded-xl shadow space-y-4'>
-          <h3 className='font-medium'>📡 Scanning...</h3>
+        <div className='border-0 space-y-4'>
+          <h3 className='font-medium text-2xl text-teal-500'>📡 Scanning...</h3>
           <CameraFeed
             onCapture={handleCapture}
             onCancel={() => setCameraActive(false)}
@@ -89,7 +111,7 @@ const Dashboard = () => {
         </div>
       )}
 
-      <div className='p-6 rounded-xl border-gray-200 shadow-gray-600 shadow-2xl'>
+      <div className='p-6 rounded-2xl border-gray-200 shadow-gray-600 shadow-2xl'>
         <h3 className='font-medium text-3xl mb-6 px-3'>Recent Scans</h3>
         <RecentScansList
           scans={scans.slice(0, 5)}
@@ -99,7 +121,7 @@ const Dashboard = () => {
           }}
         />
 
-        <div className='mt-6 px-3'>
+        <div className='mt-6 px-3 border-t pt-8'>
           <Link
             to='/history'
             className='text-blue-600 text-2xl hover:underline'

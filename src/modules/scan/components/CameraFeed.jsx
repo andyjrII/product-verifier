@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import Webcam from 'react-webcam';
-import Button from '../../../components/ui/Button';
+import ScanButton from '../../../components/ui/ScanButton';
+import { RxCross2 } from 'react-icons/rx';
 
 const CameraFeed = ({ onCapture, onCancel, loading }) => {
   const webcamRef = useRef(null);
@@ -12,12 +13,12 @@ const CameraFeed = ({ onCapture, onCancel, loading }) => {
 
   return (
     <div className='relative flex flex-col items-center gap-4'>
-      <div className='relative w-full max-w-lg rounded-xl shadow-lg overflow-hidden'>
+      <div className='relative w-full max-w-lg rounded-2xl shadow-lg overflow-hidden'>
         <Webcam
           audio={false}
           ref={webcamRef}
           screenshotFormat='image/jpeg'
-          className='w-full rounded-xl'
+          className='w-full rounded-2xl'
         />
 
         {loading && (
@@ -28,13 +29,13 @@ const CameraFeed = ({ onCapture, onCancel, loading }) => {
         )}
       </div>
 
-      <div className='flex gap-16'>
-        <Button variant='primary' onClick={capture}>
+      <div className='flex justify-between g-8 items-center mt-4 w-full'>
+        <ScanButton variant='primary' onClick={capture}>
           📷 Scan
-        </Button>
-        <Button variant='danger' onClick={onCancel}>
-          ❌ Cancel
-        </Button>
+        </ScanButton>
+        <ScanButton variant='danger' onClick={onCancel}>
+          <RxCross2 className='text-white' /> Cancel
+        </ScanButton>
       </div>
     </div>
   );

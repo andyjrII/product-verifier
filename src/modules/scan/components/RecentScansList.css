@@ -1,9 +1,0 @@
-.recent-scans-grid {
-  .scan-card {
-    transition: transform 0.2s ease;
-
-    &:hover {
-      transform: scale(1.02);
-    }
-  }
-}
