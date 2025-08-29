@@ -1,26 +1,37 @@
-const RecentScansList = ({ scans }) => {
+import './RecentScansList.css';
+
+const RecentScansList = ({ scans, onSelectScan }) => {
   return (
-    <div className='mt-6'>
-      <h4 className='text-lg font-semibold mb-3'>Recent Scans</h4>
-      <ul className='space-y-2'>
-        {scans.map((scan, index) => (
-          <li
-            key={index}
-            className='flex justify-between items-center bg-white p-3 rounded-lg shadow-sm border border-gray-200'
-          >
-            <span className='text-gray-700 font-medium'>{scan.label}</span>
+    <div className='recent-scans-grid grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))]'>
+      {scans.map((scan, index) => (
+        <div
+          key={index}
+          role='button'
+          onClick={() => onSelectScan(scan)}
+          className='scan-card bg-white hover:bg-gray-100 p-3 flex items-start gap-3 cursor-pointer transition'
+        >
+          {/* Image */}
+          <img
+            src={scan.scannedImage}
+            alt={scan.label}
+            className='w-[50px] h-[50px] object-cover rounded-lg'
+          />
+
+          {/* Info row */}
+          <div className='flex flex-1 justify-between items-center mt-2'>
+            <span className='font-semibold text-2xl text-gray-600'>
+              {scan.label}
+            </span>
             <span
-              className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                scan.status === 'match'
-                  ? 'bg-green-100 text-green-700'
-                  : 'bg-red-100 text-red-700'
+              className={`text-lg px-4 py-2 rounded-full text-white ${
+                scan.status === 'match' ? 'bg-green-400' : 'bg-red-400'
               }`}
             >
               {scan.status === 'match' ? 'Match' : 'Mismatch'}
             </span>
-          </li>
-        ))}
-      </ul>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

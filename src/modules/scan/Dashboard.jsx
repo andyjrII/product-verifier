@@ -1,9 +1,9 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import CameraFeed from './components/CameraFeed';
-import MatchCard from './components/MatchCard';
-import MismatchCard from './components/MismatchCard';
 import RecentScansList from './components/RecentScansList';
 import ResultModal from './components/ResultModal';
+import scannedImage from '../../assets/scanned-img.jpeg';
 import dbImage from '../../assets/db-image.jpg';
 import { PiScanThin } from 'react-icons/pi';
 
@@ -12,9 +12,23 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const [latestResult, setLatestResult] = useState(null);
   const [showResultModal, setShowResultModal] = useState(false);
+  const [selectedScan, setSelectedScan] = useState(null);
+
   const [scans, setScans] = useState([
-    { label: 'Product A', status: 'match' },
-    { label: 'Product B', status: 'mismatch' },
+    {
+      label: 'Product A',
+      status: 'match',
+      scannedImage: scannedImage,
+      databaseImage: scannedImage,
+      errorMessage: null,
+    },
+    {
+      label: 'Product B',
+      status: 'mismatch',
+      scannedImage: scannedImage,
+      databaseImage: dbImage,
+      errorMessage: 'Packaging mismatch',
+    },
   ]);
 
   const handleCapture = (imgSrc) => {
@@ -33,17 +47,19 @@ const Dashboard = () => {
       };
 
       setLatestResult(result);
-      setScans((prev) => [
-        { label: result.productName, status: result.status },
-        ...prev,
-      ]);
+
+      setScans((prev) => [{ ...result, label: result.productName }, ...prev]);
+
+      setSelectedScan(result);
       setShowResultModal(true);
     }, 2000);
   };
 
   return (
-    <div className='px-4 py-6 space-y-6'>
-      <h2 className='text-lg font-semibold'>📷 Scan</h2>
+    <div className='px-4 py-6 space-y-8'>
+      <h2 className='text-3xl font-semibold'>
+        Scan <span className='float-right'>📷</span>
+      </h2>
 
       {!cameraActive ? (
         <div
@@ -51,7 +67,7 @@ const Dashboard = () => {
           onClick={() => setCameraActive(true)}
         >
           <PiScanThin className='text-9xl mb-2' />
-          <p className='font-medium text-2xl'>Scan Product</p>
+          <p className='font-medium text-3xl'>Scan Product</p>
         </div>
       ) : (
         <div className='p-4 border rounded-xl shadow space-y-4'>
@@ -64,31 +80,33 @@ const Dashboard = () => {
         </div>
       )}
 
-      <div className='p-4 border rounded-xl shadow'>
-        <h3 className='font-medium'>📊 Latest Scan Result</h3>
-        {!latestResult ? (
-          <p className='text-gray-400'>No scan yet</p>
-        ) : latestResult.status === 'match' ? (
-          <MatchCard productName={latestResult.productName} />
-        ) : (
-          <MismatchCard {...latestResult} />
-        )}
-      </div>
+      <div className='p-5 rounded-xl border-gray-200 shadow-gray-600 shadow-2xl'>
+        <h3 className='font-medium text-3xl mb-6'>Recent Scans</h3>
+        <RecentScansList
+          scans={scans.slice(0, 5)}
+          onSelectScan={(scan) => {
+            setSelectedScan(scan);
+            setShowResultModal(true);
+          }}
+        />
 
-      <div className='p-4 border rounded-xl shadow'>
-        <h3 className='font-medium'>🕓 Recent Scans</h3>
-        <RecentScansList scans={scans.slice(0, 5)} />
-        <div className='text-right mt-3'>
-          <a href='/history' className='text-blue-600 hover:underline'>
-            📚 View Full History →
-          </a>
+        <div className='mt-6 px-2'>
+          <Link
+            to='/history'
+            className='text-blue-600 text-2xl hover:underline'
+          >
+            View Full History →
+          </Link>
         </div>
       </div>
 
-      {showResultModal && (
+      {showResultModal && selectedScan && (
         <ResultModal
-          result={latestResult}
-          onClose={() => setShowResultModal(false)}
+          result={selectedScan}
+          onClose={() => {
+            setSelectedScan(null);
+            setShowResultModal(false);
+          }}
         />
       )}
     </div>
