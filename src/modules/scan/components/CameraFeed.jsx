@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import Webcam from 'react-webcam';
 import Button from '../../../components/ui/Button';
 
-const CameraFeed = ({ onCapture, onCancel }) => {
+const CameraFeed = ({ onCapture, onCancel, loading }) => {
   const webcamRef = useRef(null);
 
   const capture = () => {
@@ -11,15 +11,24 @@ const CameraFeed = ({ onCapture, onCancel }) => {
   };
 
   return (
-    <div className='flex flex-col items-center gap-4'>
-      <Webcam
-        audio={false}
-        ref={webcamRef}
-        screenshotFormat='image/jpeg'
-        className='w-full max-w-lg rounded-xl shadow-lg'
-      />
+    <div className='relative flex flex-col items-center gap-4'>
+      <div className='relative w-full max-w-lg rounded-xl shadow-lg overflow-hidden'>
+        <Webcam
+          audio={false}
+          ref={webcamRef}
+          screenshotFormat='image/jpeg'
+          className='w-full rounded-xl'
+        />
 
-      <div className='flex gap-3'>
+        {loading && (
+          <div className='absolute inset-0 z-10'>
+            <div className='absolute inset-0 bg-black bg-opacity-30'></div>
+            <div className='animate-scan-line h-full' />
+          </div>
+        )}
+      </div>
+
+      <div className='flex gap-16'>
         <Button variant='primary' onClick={capture}>
           📷 Scan
         </Button>

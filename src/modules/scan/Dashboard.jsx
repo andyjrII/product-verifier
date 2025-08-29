@@ -3,12 +3,15 @@ import CameraFeed from './components/CameraFeed';
 import MatchCard from './components/MatchCard';
 import MismatchCard from './components/MismatchCard';
 import RecentScansList from './components/RecentScansList';
+import ResultModal from './components/ResultModal';
 import dbImage from '../../assets/db-image.jpg';
+import { PiScanThin } from 'react-icons/pi';
 
 const Dashboard = () => {
   const [cameraActive, setCameraActive] = useState(false);
   const [loading, setLoading] = useState(false);
   const [latestResult, setLatestResult] = useState(null);
+  const [showResultModal, setShowResultModal] = useState(false);
   const [scans, setScans] = useState([
     { label: 'Product A', status: 'match' },
     { label: 'Product B', status: 'mismatch' },
@@ -34,6 +37,7 @@ const Dashboard = () => {
         { label: result.productName, status: result.status },
         ...prev,
       ]);
+      setShowResultModal(true);
     }, 2000);
   };
 
@@ -41,14 +45,13 @@ const Dashboard = () => {
     <div className='px-4 py-6 space-y-6'>
       <h2 className='text-lg font-semibold'>📷 Scan</h2>
 
-      {/* Scan Section */}
       {!cameraActive ? (
         <div
-          className='flex flex-col items-center justify-center p-6 border rounded-xl shadow cursor-pointer hover:shadow-md transition'
+          className='flex flex-col items-center justify-center w-full p-6 rounded-2xl bg-blue-500 text-white shadow-md cursor-pointer hover:bg-blue-600 transition'
           onClick={() => setCameraActive(true)}
         >
-          <span className='text-6xl'>📷</span>
-          <p className='text-gray-500 mt-2'>Click here to start your scan</p>
+          <PiScanThin className='text-9xl mb-2' />
+          <p className='font-medium text-2xl'>Scan Product</p>
         </div>
       ) : (
         <div className='p-4 border rounded-xl shadow space-y-4'>
@@ -56,16 +59,11 @@ const Dashboard = () => {
           <CameraFeed
             onCapture={handleCapture}
             onCancel={() => setCameraActive(false)}
+            loading={loading}
           />
-          {loading && (
-            <div className='mt-3 p-3 bg-blue-50 text-blue-700 rounded'>
-              Processing scan... please wait.
-            </div>
-          )}
         </div>
       )}
 
-      {/* Latest Result */}
       <div className='p-4 border rounded-xl shadow'>
         <h3 className='font-medium'>📊 Latest Scan Result</h3>
         {!latestResult ? (
@@ -77,7 +75,6 @@ const Dashboard = () => {
         )}
       </div>
 
-      {/* Recent History */}
       <div className='p-4 border rounded-xl shadow'>
         <h3 className='font-medium'>🕓 Recent Scans</h3>
         <RecentScansList scans={scans.slice(0, 5)} />
@@ -87,6 +84,13 @@ const Dashboard = () => {
           </a>
         </div>
       </div>
+
+      {showResultModal && (
+        <ResultModal
+          result={latestResult}
+          onClose={() => setShowResultModal(false)}
+        />
+      )}
     </div>
   );
 };
