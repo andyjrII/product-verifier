@@ -21,6 +21,7 @@ const Dashboard = () => {
       scannedImage: scannedImage,
       databaseImage: scannedImage,
       errorMessage: null,
+      timestamp: '15 Aug 2025, 16:14',
     },
     {
       label: 'Product B',
@@ -28,6 +29,7 @@ const Dashboard = () => {
       scannedImage: scannedImage,
       databaseImage: dbImage,
       errorMessage: 'Packaging mismatch',
+      timestamp: '5 Aug 2025, 11:14',
     },
   ]);
 
@@ -44,6 +46,13 @@ const Dashboard = () => {
         scannedImage: imgSrc,
         databaseImage: dbImage,
         errorMessage: 'Verbiage mismatch',
+        timestamp: new Date().toLocaleDateString('en-GB', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+        }),
       };
 
       setLatestResult(result);
@@ -80,8 +89,8 @@ const Dashboard = () => {
         </div>
       )}
 
-      <div className='p-5 rounded-xl border-gray-200 shadow-gray-600 shadow-2xl'>
-        <h3 className='font-medium text-3xl mb-6'>Recent Scans</h3>
+      <div className='p-6 rounded-xl border-gray-200 shadow-gray-600 shadow-2xl'>
+        <h3 className='font-medium text-3xl mb-6 px-3'>Recent Scans</h3>
         <RecentScansList
           scans={scans.slice(0, 5)}
           onSelectScan={(scan) => {
@@ -90,7 +99,7 @@ const Dashboard = () => {
           }}
         />
 
-        <div className='mt-6 px-2'>
+        <div className='mt-6 px-3'>
           <Link
             to='/history'
             className='text-blue-600 text-2xl hover:underline'

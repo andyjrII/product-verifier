@@ -14,14 +14,18 @@ const RecentScansList = ({ scans, onSelectScan }) => {
           <img
             src={scan.scannedImage}
             alt={scan.label}
-            className='w-[50px] h-[50px] object-cover rounded-lg'
+            className='w-[60px] h-[60px] object-cover rounded-lg'
           />
 
           {/* Info row */}
-          <div className='flex flex-1 justify-between items-center mt-2'>
-            <span className='font-semibold text-2xl text-gray-600'>
-              {scan.label}
-            </span>
+          <div className='flex flex-1 justify-between items-center'>
+            <div className='flex flex-col'>
+              <span className='font-semibold text-3xl text-gray-600'>
+                {scan.label}
+              </span>
+              <span className='text-md text-gray-400'>{scan.timestamp}</span>
+            </div>
+
             <span
               className={`text-lg px-4 py-2 rounded-full text-white ${
                 scan.status === 'match' ? 'bg-green-400' : 'bg-red-400'

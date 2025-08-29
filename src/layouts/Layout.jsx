@@ -3,7 +3,7 @@ import Footer from '../components/Footer';
 
 const Layout = () => {
   return (
-    <div className='mx-auto max-w-[400px] min-h-screen flex flex-col'>
+    <div className='mx-auto max-w-[100%] min-h-screen flex flex-col'>
       {/* Main content */}
       <main className='flex-1 mb-20 px-4'>
         <Outlet />
